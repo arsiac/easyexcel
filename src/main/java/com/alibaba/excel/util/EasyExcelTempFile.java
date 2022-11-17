@@ -19,11 +19,7 @@ public class EasyExcelTempFile {
      * 在创建ExcelBuilder后尝试创建临时目录，避免poi创建时候报错
      */
     public static void createPOIFilesDirectory() {
-        String tmpDir = System.getProperty(JAVA_IO_TMPDIR);
-        if (tmpDir == null) {
-            throw new IllegalStateException("Systems temporary directory not defined - set the -D" +
-                    JAVA_IO_TMPDIR + " jvm property!");
-        }
+        String tmpDir = getTempDir();
         File directory = new File(tmpDir, POIFILES);
         if (!directory.exists()) {
             syncCreatePOIFilesDirectory(directory);
@@ -37,16 +33,21 @@ public class EasyExcelTempFile {
      * @return easyexcel临时目录
      */
     public static String getEasyExcelTmpDir() {
-        String tmpDir = System.getProperty(JAVA_IO_TMPDIR);
-        if (tmpDir == null) {
-            throw new IllegalStateException("Systems temporary directory not defined - set the -D" +
-                    JAVA_IO_TMPDIR + " jvm property!");
-        }
+        String tmpDir = getTempDir();
         File directory = new File(tmpDir, EASY_EXCEL_FILES);
         if (!directory.exists()) {
             syncCreatePOIFilesDirectory(directory);
         }
         return tmpDir + File.separator + EASY_EXCEL_FILES;
+    }
+
+    private static String getTempDir() {
+        String tmpDir = System.getProperty(JAVA_IO_TMPDIR);
+        if (tmpDir == null) {
+            throw new IllegalStateException("Systems temporary directory not defined - set the -D" +
+                    JAVA_IO_TMPDIR + " jvm property!");
+        }
+        return tmpDir;
     }
 
     /**
