@@ -80,7 +80,7 @@ public class FileUtil {
     }
 
     public static void mkdirs(File file) {
-        if (file == null) {
+        if (file == null || file.exists()) {
             return;
         }
         if (!file.mkdirs()) {
