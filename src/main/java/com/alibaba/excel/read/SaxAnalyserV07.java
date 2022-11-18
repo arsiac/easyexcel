@@ -229,7 +229,7 @@ public class SaxAnalyserV07 extends BaseSaxAnalyser {
                 currentValue = pre + new String(ch, start, length);
                 sharedStringList.remove(sharedStringList.size() - 1);
             } else if (Objects.equals(SHARED_NEW, currentType)) {
-                currentValue = new String(ch, start, length);
+                currentValue = currentValue + new String(ch, start, length);
             }
         }
 
